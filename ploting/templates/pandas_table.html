@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pandas table</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>Select the car model</h1>
+
+{% for item in cars_df %}
+    <a href="#" id="{{ item }}" onclick="plotly_output(this.id)">{{ item }}</a>;
+{% endfor %}
+
+
+<div id="plot_div" style="background-color:lightblue; font-size: 24px; margin-top: 50px; padding: 10px;"></div>
+
+<div id="div1"></div>
+
+<script>
+
+    function plotly_output(id){
+        $.ajax({
+            url: {% url 'statistics_by_car_name' %},
+            type: "POST",
+            data: {
+                'car_name': id,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+
+            success: function(data){
+                var trace1 = {
+                  x: data.data[0].x,
+                  y: data.data[0].y,
+                  type: 'scatter'
+                };
+
+                var data = [trace1];
+
+
+                var layout1 = {
+                    title: id,
+                };
+
+                Plotly.newPlot('plot_div', data, layout1);
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
