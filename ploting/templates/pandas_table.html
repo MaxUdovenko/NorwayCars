@@ -35,7 +35,18 @@
 
                 var plot_data = [trace1];
 
-                var layout1 = { title: data.name, };
+                var layout1 = {
+                    title: data.name,
+
+                    xaxis: {
+                        autorange: true,
+                        tickvals:data.years,
+                    },
+
+                    yaxis: {
+                        autorange: true
+                    }
+                };
 
                 Plotly.newPlot('plot_div', plot_data, layout1);
             }

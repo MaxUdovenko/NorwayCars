@@ -38,7 +38,8 @@ def statistics_by_car_name(request):
     data_for_plotly = {
         'name': car_name,
         'x': df_years,
-        'y': q_list
+        'y': q_list,
+        'years': df_years
     }
 
     final_data = json.loads( json.dumps(data_for_plotly, cls=pu.PlotlyJSONEncoder) )
