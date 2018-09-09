@@ -1,13 +1,9 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 import pandas as pd
 from django.contrib.staticfiles.storage import staticfiles_storage
-
-import plotly.graph_objs as go
-from plotly.offline import plot
-import plotly.utils as pu
-
 from django.http import JsonResponse
 import json
+import plotly.utils as pu
 
 
 def pandas_table(request):
@@ -39,13 +35,12 @@ def statistics_by_car_name(request):
     for item in df_years:
         q_list.append(df.loc[df['Year'] == item].loc[df['Make'] == car_name]['Quantity'].sum())
 
-    # Plotly part
-    trace1 = go.Scatter(x=df_years, y=q_list, name=car_name)
-    data = [trace1]
+    data_for_plotly = {
+        'name': car_name,
+        'x': df_years,
+        'y': q_list
+    }
 
-    fig = go.Figure(data=data)
-
-    final_data = json.loads( json.dumps(fig, cls=pu.PlotlyJSONEncoder) )
+    final_data = json.loads( json.dumps(data_for_plotly, cls=pu.PlotlyJSONEncoder) )
 
     return JsonResponse(final_data, safe=False)
-

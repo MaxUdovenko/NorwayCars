@@ -30,20 +30,22 @@
             },
 
             success: function(data){
+
                 var trace1 = {
-                  x: data.data[0].x,
-                  y: data.data[0].y,
+                  x: data.x,
+                  y: data.y,
                   type: 'scatter'
                 };
 
-                var data = [trace1];
+                var plot_data = [trace1];
 
 
                 var layout1 = {
-                    title: id,
+                    title: data.name,
                 };
 
-                Plotly.newPlot('plot_div', data, layout1);
+                Plotly.newPlot('plot_div', plot_data, layout1);
+
             }
         });
     }
