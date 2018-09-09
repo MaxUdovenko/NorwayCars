@@ -31,17 +31,11 @@
 
             success: function(data){
 
-                var trace1 = {
-                  x: data.x,
-                  y: data.y,
-                  type: 'scatter'
-                };
+                var trace1 = { x: data.x, y: data.y, type: 'scatter' };
 
                 var plot_data = [trace1];
 
-                var layout1 = {
-                    title: data.name,
-                };
+                var layout1 = { title: data.name, };
 
                 Plotly.newPlot('plot_div', plot_data, layout1);
             }
