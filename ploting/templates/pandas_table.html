@@ -1,23 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Pandas table</title>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-</head>
-<body>
-<h1>Select the car model</h1>
+{% extends "layout.html" %}
 
-{% for item in cars_df %}
-    <a href="#" id="{{ item }}" onclick="plotly_output(this.id)">{{ item }}</a>;
-{% endfor %}
+{% block title %}Pandas table{% endblock %}
 
+{% block main_page %}
+    <h3>Select the car model</h3>
 
-<div id="plot_div" style="background-color:lightblue; font-size: 24px; margin-top: 50px; padding: 10px;"></div>
+    <div class="row">
+    {% for item in cars_df %}
+        <div class="col s2"><a href="#" id="{{ item }}" onclick="plotly_output(this.id)">{{ item }}</a></div>
+    {% endfor %}
+    </div>
 
-<div id="div1"></div>
+    <div class="col s12 m7">
+        <div class="card horizontal">
+            <div class="card-stacked">
+                <div class="card-content">
+                    <div id="plot_div"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+{% endblock %}
+
+<!-- JS Footer -->
+{% block js_footer %}
 <script>
 
     function plotly_output(id){
@@ -54,5 +61,13 @@
     }
 </script>
 
-</body>
-</html>
+
+    <!-- Materialize CSS Init -->
+    <script>
+    /*
+        $(document).ready(function(){
+            $('select').formSelect();
+        });
+    */
+    </script>
+{% endblock %}

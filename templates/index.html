@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Norway Open Data</title>
-</head>
-<body>
+{% extends "layout.html" %}
+
+{% block title %}Norway Open Data{% endblock %}
+
+{% block main_page %}
 <h1>Norway open data</h1>
 <a href="{% url 'pandas_table' %}">pandas_table</a>
-</body>
-</html>
+{% endblock %}
