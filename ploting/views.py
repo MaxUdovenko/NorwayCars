@@ -7,23 +7,22 @@ import plotly.utils as pu
 
 
 def pandas_table(request):
-    cars_df = cars_list()
-    return render(request, 'pandas_table.html', {'cars_df': cars_df})
+    car_makers = cars_makers_list()
+    return render(request, 'car_makers.html', {'car_makers': car_makers})
 
 
-def cars_list():
+def cars_makers_list():
     csv_file = staticfiles_storage.path('csv/norway_new_car_sales_by_make.csv')
     df = pd.read_csv(csv_file)
 
-    cars_df = df['Make'].unique()
+    car_makers = df['Make'].unique()
 
-    return cars_df
+    return car_makers
 
 
-def statistics_by_car_name(request):
+def statistics_by_car_maker(request):
 
     car_name = request.POST['car_name']
-    cars_df = cars_list()
 
     csv_file = staticfiles_storage.path('csv/norway_new_car_sales_by_make.csv')
     df = pd.read_csv(csv_file)

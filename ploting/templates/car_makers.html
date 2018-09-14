@@ -1,18 +1,18 @@
 {% extends "layout.html" %}
 
-{% block title %}Pandas table{% endblock %}
+{% block title %}Car makers{% endblock %}
 
 {% block main_page %}
-    <h3>Select the car model</h3>
+    <h3>Select the car maker</h3>
 
     <div class="row">
-    {% for item in cars_df %}
+    {% for item in car_makers %}
         <div class="col s2"><a href="#" id="{{ item }}" onclick="plotly_output(this.id)">{{ item }}</a></div>
     {% endfor %}
     </div>
 
     <div class="col s12 m7">
-        <div class="card horizontal">
+        <div class="card horizontal z-depth-3">
             <div class="card-stacked">
                 <div class="card-content">
                     <div id="plot_div"></div>
@@ -29,7 +29,7 @@
 
     function plotly_output(id){
         $.ajax({
-            url: {% url 'statistics_by_car_name' %},
+            url: {% url 'statistics_by_car_maker' %},
             type: "POST",
             data: {
                 'car_name': id,
