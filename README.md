@@ -8,8 +8,13 @@ I found open data set https://www.kaggle.com/dmi3kno/newcarsalesnorway/home, dow
 
 ![](screenshots/gif.gif)
 
-* download
-* run
+
+### installing dependencies from file
+```bash
+$ pip install -r requeriments.txt
+```
+
+### run
 
 ```bash
 python manage.py runserver
