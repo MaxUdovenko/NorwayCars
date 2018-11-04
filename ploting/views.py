@@ -7,17 +7,11 @@ import plotly.utils as pu
 
 
 def pandas_table(request):
-    car_makers = cars_makers_list()
-    return render(request, 'car_makers.html', {'car_makers': car_makers})
-
-
-def cars_makers_list():
     csv_file = staticfiles_storage.path('csv/norway_new_car_sales_by_make.csv')
     df = pd.read_csv(csv_file)
 
     car_makers = df['Make'].unique()
-
-    return car_makers
+    return render(request, 'car_makers.html', {'car_makers': car_makers})
 
 
 def statistics_by_car_maker(request):
@@ -27,13 +21,16 @@ def statistics_by_car_maker(request):
     csv_file = staticfiles_storage.path('csv/norway_new_car_sales_by_make.csv')
     df = pd.read_csv(csv_file)
 
-    df_years = df['Year'].unique()
+    # Selection by givven car name
+    dff = df[df['Make'] == car_name]
+
+    # Years list
+    df_years = dff.groupby('Year', as_index=False)['Quantity'].sum()['Year'].values.tolist()
 
     # Quantity list
-    q_list = list()
-    for item in df_years:
-        q_list.append(df.loc[df['Year'] == item].loc[df['Make'] == car_name]['Quantity'].sum())
+    q_list = dff.groupby('Year', as_index=False)['Quantity'].sum()['Quantity'].values.tolist()
 
+    # Dictionary for Plotly
     data_for_plotly = {
         'name': car_name,
         'x': df_years,
@@ -41,6 +38,7 @@ def statistics_by_car_maker(request):
         'years': df_years
     }
 
-    final_data = json.loads( json.dumps(data_for_plotly, cls=pu.PlotlyJSONEncoder) )
+    # Convert data to Plotly format
+    final_data = json.loads(json.dumps(data_for_plotly, cls=pu.PlotlyJSONEncoder))
 
     return JsonResponse(final_data, safe=False)
