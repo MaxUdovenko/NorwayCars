@@ -11,7 +11,7 @@ I found open data set https://www.kaggle.com/dmi3kno/newcarsalesnorway/home, dow
 
 ### installing dependencies from file
 ```bash
-$ pip install -r requeriments.txt
+$ pip install -r requirements.txt
 ```
 
 ### run
