@@ -7,7 +7,9 @@
 
     <div class="row">
     {% for item in car_makers %}
-        <div class="col s2"><a href="#" id="{{ item }}" onclick="plotly_output(this.id)">{{ item }}</a></div>
+        <div class="col s2">
+            <a href="#" id="{{ item }}" onclick="plotly_output(this.id)">{{ item }}</a>
+        </div>
     {% endfor %}
     </div>
 
@@ -38,11 +40,11 @@
 
             success: function(data){
 
-                var trace1 = { x: data.x, y: data.y, type: 'scatter' };
+                let trace1 = { x: data.x, y: data.y, type: 'scatter' };
 
-                var plot_data = [trace1];
+                let plot_data = [trace1];
 
-                var layout1 = {
+                let layout1 = {
                     title: data.name,
 
                     xaxis: {
@@ -61,13 +63,4 @@
     }
 </script>
 
-
-    <!-- Materialize CSS Init -->
-    <script>
-    /*
-        $(document).ready(function(){
-            $('select').formSelect();
-        });
-    */
-    </script>
 {% endblock %}
