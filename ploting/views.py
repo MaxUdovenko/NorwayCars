@@ -21,21 +21,14 @@ def statistics_by_car_maker(request):
     csv_file = staticfiles_storage.path('csv/norway_new_car_sales_by_make.csv')
     df = pd.read_csv(csv_file)
 
-    # Selection by givven car name
+    # Selection by given car name
     dff = df[df['Make'] == car_name]
-
-    # Years list
-    df_years = dff.groupby('Year', as_index=False)['Quantity'].sum()['Year'].values.tolist()
-
-    # Quantity list
-    q_list = dff.groupby('Year', as_index=False)['Quantity'].sum()['Quantity'].values.tolist()
 
     # Dictionary for Plotly
     data_for_plotly = {
         'name': car_name,
-        'x': df_years,
-        'y': q_list,
-        'years': df_years
+        'x': dff.groupby('Year', as_index=False)['Quantity'].sum()['Year'].values.tolist(),
+        'y': dff.groupby('Year', as_index=False)['Quantity'].sum()['Quantity'].values.tolist(),
     }
 
     # Convert data to Plotly format
